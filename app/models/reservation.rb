@@ -10,7 +10,7 @@ class Reservation < ApplicationRecord
       state :active, initial: true
       state :inactive
   
-      event :disable do 
+      event :disable do
         transitions from: :active, to: :inactive
       end
       event :enable do
@@ -19,12 +19,11 @@ class Reservation < ApplicationRecord
     end
   
     
-    def limit_reservations_by_film? 
-      count_reservation_film = Reservation.where(film_id: self.film_id, date: Date.today).count
-      errors.add(:message, "Ya estan ocupados todos los asientos para la película #{self.film.name} para el día #{self.date}") if count_reservation_film >= 10 
+    def limit_reservations_by_film?
+      count_reservation_film = Reservation.where(film_id: self.film_id, date: date).count
     end
     
-    def self.actives 
+    def self.actives
       where(status: 'active')
     end
   
@@ -32,7 +31,7 @@ class Reservation < ApplicationRecord
       where("reservations.date >= ? AND reservations.date <= ? ", start_date, end_date)
     end
   
-    def details 
+    def details
       {
         id: id,
         film: film.name,

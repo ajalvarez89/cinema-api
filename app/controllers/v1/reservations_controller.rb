@@ -10,7 +10,8 @@ class V1::ReservationsController < ApplicationController
   def create
     reservation = Reservation.new(reservation_params)
 
-    if reservation.save
+    if reservation.limit_reservations_by_film? <= 9
+      reservation.save
       render json: { reservation: reservation}, status: :ok
     else
       render json: { errors: reservation.errors.full_messages.to_sentence}, status: :unprocessable_entity
