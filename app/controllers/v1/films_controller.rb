@@ -1,10 +1,8 @@
 class V1::FilmsController < ApplicationController
-  before_action :valid_dates?, only: :index
+  before_action :valid_dates?,:set_film, only: :index
 
   def index
-    films =  @valid_dates ? Film.actives.by_dates(params[:start_date].to_date, params[:end_date].to_date) : Film.actives
-
-    render json: { films: films.collect(&:details)}, status: :ok
+    render json: { films: @films.collect(&:details)}, status: :ok
   end
 
   def create
@@ -15,9 +13,17 @@ class V1::FilmsController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def film_params
     params.require(:film).permit(:name, :description, :url_image, :start_date, :end_date)
+  end
+
+  def set_film
+    begin
+      @films =  @valid_dates ? Film.actives.by_dates(params[:start_date].to_date, params[:end_date].to_date) : Film.actives
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { errors: "not_found" }, status: :not_found
+    end
   end
 end

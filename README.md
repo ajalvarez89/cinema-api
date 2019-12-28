@@ -1,24 +1,63 @@
-# README
+# cinema-api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an API about cinema reservations
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+Just run the bin setup:
 
-* System dependencies
+```bash
+  bin/setup
+```
+or
 
-* Configuration
+```bash
+  bundle install
+  yarn install --check-files
+```
 
-* Database creation
+Now you should create db, run the migrates and seeds:
 
-* Database initialization
+```bash
+  rails db:create db:migrate db:seed
+```
 
-* How to run the test suite
+To run the app:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+  rails server
+```
+## Endpoinds:💎
 
-* Deployment instructions
+* GET Films:
+```bash
+   localhost:3000/v1/films
+```
+* GET Reservations:
+```bash
+   localhost:3000/v1/reservations
+```
 
-* ...
+* POST Reservations:
+```bash
+   localhost:3000/v1/reservations
+```
+```bash
+   HEADER:
+ {
+	"reservation": {
+		"name":"Alvaro Alvarez",
+		"film_id":1,
+		"email":"a.jalvarez@hotmail.com",
+		"document": "1140825821",
+		"phone": "3023515542",
+		"date": "2019-12-30"
+
+	}
+}
+```
+
+## Pending
+- Install rspec
+- Create tests
+- config serializers
