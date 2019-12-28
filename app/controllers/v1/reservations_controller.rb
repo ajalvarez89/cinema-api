@@ -4,16 +4,16 @@ class V1::ReservationsController < ApplicationController
   def index
     reservations =  @valid_dates ? Reservation.by_dates(params[:start_date].to_date, params[:end_date].to_date) : Reservation.actives
 
-    render json: { reservations: reservations.collect(&:details), error: false }, status: :ok
+    render json: { reservations: reservations.collect(&:details)}, status: :ok
   end
 
   def create
     reservation = Reservation.new(reservation_params)
 
     if reservation.save
-      render json: { reservation: reservation, error: false }, status: :ok
+      render json: { reservation: reservation}, status: :ok
     else
-      render json: { errors: reservation.errors.full_messages.to_sentence, error: true }, status: :unprocessable_entity
+      render json: { errors: reservation.errors.full_messages.to_sentence}, status: :unprocessable_entity
     end
   end
 

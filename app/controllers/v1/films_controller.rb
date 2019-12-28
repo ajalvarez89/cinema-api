@@ -4,12 +4,12 @@ class V1::FilmsController < ApplicationController
   def index
     films =  @valid_dates ? Film.actives.by_dates(params[:start_date].to_date, params[:end_date].to_date) : Film.actives
 
-    render json: { films: films.collect(&:details), error: false }, status: :ok
+    render json: { films: films.collect(&:details)}, status: :ok
   end
 
   def create
     if film = Film.create(film_params)
-      render json: { film: film, error: false }, status: :ok
+      render json: { film: film}, status: :ok
     else
       render json: { errors: film.errors.full_messages.to_sentence, error: true }, status: :unprocessable_entity
     end
