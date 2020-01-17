@@ -45,6 +45,10 @@ To run the app:
 ```bash
    localhost:3000/v1/reservations
 ```
+* POST Reservations filter:
+```bash
+localhost:3000/v1/reservations/?start_date=2019-05-01&end_date=2019-12-31
+```
 ```bash
    HEADER:
  {

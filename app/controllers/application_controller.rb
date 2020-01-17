@@ -11,4 +11,9 @@ class ApplicationController < ActionController::API
       end
     end
   end
+
+  def valid_film_full?(reservations)
+    false
+    return true if reservations.count < 10
+  end
 end

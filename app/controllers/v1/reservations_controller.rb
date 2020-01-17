@@ -1,13 +1,14 @@
 class V1::ReservationsController < ApplicationController
-  before_action :valid_dates?, :set_reservation, only: :index
+  before_action :valid_dates?, :set_reservation, only: [:index, :create]
 
   def index
     render json: { reservations: @reservations.collect(&:details)}, status: :ok
   end
 
   def create
-    reservation = Reservation.new(reservation_params)
-    if reservation.limit_reservations_by_film? <= 9
+    # byebug
+    if valid_film_full?(@reservations)
+      reservation = Reservation.new(reservation_params)
       reservation.active!
       reservation.save
       render json: { reservation: reservation }, status: :ok
