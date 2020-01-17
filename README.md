@@ -33,11 +33,14 @@ To run the app:
 ```bash
    localhost:3000/v1/films
 ```
+* GET Films with filter:
+```bash
+   localhost:3000/v1/films/?start_date=2020-01-01&end_date=2020-12-31
+```
 * GET Reservations:
 ```bash
    localhost:3000/v1/reservations
 ```
-
 * POST Reservations:
 ```bash
    localhost:3000/v1/reservations
